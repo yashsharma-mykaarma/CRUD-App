@@ -1,0 +1,59 @@
+<div style="padding: 20px;">
+
+  <h2>Customer CRUD Table</h2>
+
+  <!-- FORM -->
+  <div style="margin-bottom: 20px;">
+    <input [(ngModel)]="customer.name" placeholder="Name">
+    <input [(ngModel)]="customer.email" placeholder="Email">
+
+    <button mat-raised-button color="primary" (click)="saveCustomer()">
+      {{ isEditMode ? 'Update' : 'Add' }}
+    </button>
+
+    <button mat-button (click)="resetForm()">Clear</button>
+  </div>
+
+  <!-- TABLE -->
+  <table mat-table [dataSource]="dataSource()" class="mat-elevation-z8" style="width: 100%;">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let customer"> {{customer.id}} </td>
+    </ng-container>
+
+    <!-- Name -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let customer"> {{customer.name}} </td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let customer"> {{customer.email}} </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let customer">
+
+        <button mat-button color="accent" (click)="editCustomer(customer)">
+          Edit
+        </button>
+
+        <button mat-button color="warn" (click)="deleteCustomer(customer.id!)">
+          Delete
+        </button>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+</div>
